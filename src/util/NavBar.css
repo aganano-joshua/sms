@@ -30,7 +30,7 @@
     width: 15rem;
 }
 
-.navbar> ul >li{
+.navbar> ul >li .navlink{
     height: 2.5rem;
     display: flex;
     align-items: center;
@@ -40,10 +40,12 @@
     gap: 15px;
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .navbar> ul .active{
     background: rgb(2, 112, 255);
+    border-radius: 10px;
 }
 
 .navbar > .profile-section{

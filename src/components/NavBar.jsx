@@ -3,33 +3,44 @@ import { SlPeople } from "react-icons/sl";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa6";
 import '../util/NavBar.css'
-import { useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const NavBar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const [activeItem, setActiveItem] = useState("Home");
+
+  const handleItemClick = (item, path) => {
+    setActiveItem(item); // Set the active item
+    navigate(path); // Navigate to the desired page
+  };
     const handleLogout = () => {
         navigate('/')
-    }
-
-    const linkToManage = () => {
-        navigate('/manage')
     }
   return (
     <div className="navabar-container">
         <h1>Admin Dashboard</h1>
         <div className="navbar">
             <ul>
-                <li className="active" onClick={() => navigate('/dashboard')}>
+                <li className={`nav-item ${location.pathname === "/dashboard" ? "active" : ""}`} onClick={() => handleItemClick("Home", "/dashboard")}>
+                    <NavLink to="/dashboard" className='navlink'>
                     <SlSpeedometer/>
                     Dashboard
+                    </NavLink>
                 </li>
-                <li onClick={linkToManage}>
+                <li className={`nav-item ${location.pathname === "/manage" ? "active" : ""}`}>
+                <NavLink to="/manage" className='navlink'>
                     <SlPeople/>
                     Manage Employees
+                </NavLink>
                 </li>
-                <li>
+                <li className={`nav-item ${location.pathname === "/profile" ? "active" : ""}`}>
+                <NavLink to="/profile" className='navlink'>
                     <IoPersonCircleOutline/>
                     Profile
+                </NavLink>
                 </li>
             </ul>
             <div className="profile-section">
