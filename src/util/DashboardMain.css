@@ -1,0 +1,45 @@
+.main-content-main-page{
+    padding-left: 20rem;
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background: rgb(2, 112, 255);
+    height: 100vh;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.main-content-main-page> div {
+    width: 100%;
+    padding: 15px;
+}
+
+.main-content-main-page> div .admin-info{
+    background: black;
+    margin-bottom: 2rem;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.main-content-main-page > div > .admin-info > h2{
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgb(2, 112, 255);
+}
+
+.main-content-main-page> div> .manage{
+    display: flex;
+    justify-content: center;
+}
+
+.label{
+    margin-top: 20px;
+}
+
+.main-content-main-page > div> .arrow-directions{
+   display: flex;
+   width: 100%;
+   justify-content: space-between; 
+}
