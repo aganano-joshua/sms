@@ -10,7 +10,7 @@ const ManageEmployees = () => {
                 <h1>Staff Management System</h1>
                 <div>
                     <div className='arrow-directions'>
-                        <button><FaArrowLeft /></button>
+                        <button className='button1'><FaArrowLeft /></button>
                         <button><IoIosAddCircle/> Add Employee</button>
                     </div>
                     <div className="admin-info manage">
