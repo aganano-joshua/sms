@@ -4,7 +4,7 @@ import '../util/DashboardMain.css'
 const AdminDashboard = () => {
     const salary = '12000'
     return (
-        <div>
+        <div style={{ height: '100vh'}}>
             <NavBar />
             <div className="main-content-main-page">
                 <h1>Staff Management System</h1>

@@ -17,6 +17,7 @@ const NavBar = () => {
     navigate(path); // Navigate to the desired page
   };
     const handleLogout = () => {
+        alert('Are you sure you want to logout')
         navigate('/')
     }
   return (

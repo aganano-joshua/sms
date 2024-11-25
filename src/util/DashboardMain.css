@@ -1,13 +1,14 @@
 .main-content-main-page{
     padding-left: 20rem;
     width: 100%;
+    height: 100%;
     display: flex;
     gap: 2rem;
     flex-direction: column;
     align-items: center;
     color: white;
     background: rgb(2, 112, 255);
-    height: 100vh;
+    /* height: 100vh; */
     padding-top: 40px;
     padding-bottom: 30px;
 }
@@ -31,8 +32,80 @@
 
 .main-content-main-page> div> .manage{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
+
+.main-content-main-page> div> .manage> .staff-table{
+    width: 100%;
+}
+
+.table-container {
+    overflow-x: auto;
+  }
+  
+  .styled-table {
+    width: 100%;
+    min-width: 600px; /* Ensure the table has a minimum width */
+  }
+
+
+/* Basic Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
+  }
+  
+  .styled-table thead tr {
+    /* background-color: #009879; */
+    border-top: 1px solid rgb(2, 112, 255);
+    border-bottom: 1px solid rgb(2, 112, 255);
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid rgb(2, 112, 255);
+  }
+
+  .styled-table tbody tr td img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+
+  .styled-table tbody tr td .action-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .styled-table tbody tr td .action-btn button{
+    width: 3rem;
+    height: 2rem;
+    background: rgb(2, 112, 255);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  
+  /* Hover effect */
+  .styled-table tbody tr:hover {
+    background-color: #3131310f;
+    cursor: pointer;
+  }
+  
 
 .main-content-main-page> div> .manage> h2{
     border-bottom: none;

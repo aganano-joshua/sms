@@ -1,26 +1,34 @@
+import { useState } from 'react';
 import NavBar from '../components/NavBar'
-import { FaArrowLeft } from "react-icons/fa";
-import { IoIosAddCircle } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
+import AddEmployee from './AddEmployee';
+import Table from './Table';
 
 const ManageEmployees = () => {
-    const navigate = useNavigate();
+    const totalSteps = 2;
+    const [currentStep, setCurrentStep] = useState(1);
+
+    const nextStep = () => {
+        setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+      };
+    
+      const prevStep = () => {
+        setCurrentStep((prev) => Math.max(prev - 1, 1));
+      };
+
+    const renderStep = () => {
+        switch (currentStep) {
+            case 1:
+              return <Table nextStep={nextStep}/>;
+            case 2:
+              return <AddEmployee nextStep={nextStep} prevStep={prevStep}/>;
+            default:
+              return null;
+          }
+    }
     return (
         <div>
             <NavBar />
-            <div className="main-content-main-page">
-                <h1>Staff Management System</h1>
-                <div>
-                    <div className='arrow-directions'>
-                        <button className='button1' onClick={() => navigate(-1)}><FaArrowLeft /></button>
-                        <button><IoIosAddCircle/> Add Employee</button>
-                    </div>
-                    <div className="admin-info manage">
-                        <h2>All Employees</h2>
-
-                    </div>
-                </div>
-            </div>
+            {renderStep()}
         </div>
     )
 }

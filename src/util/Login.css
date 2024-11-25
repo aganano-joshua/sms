@@ -29,7 +29,7 @@
 
 .input-container input{
     width: 20rem;
-    height: 1.5rem;
+    height: 3rem;
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -39,9 +39,10 @@
     width: 21rem;
     padding: 10px;
     border-radius: 10px;
-    background: blue;
+    background: rgb(2, 112, 255);
     border: none;
     color: white;
     font-weight: bold;
     margin-top: 15px;
+    font-size: 1.2rem;
 }
