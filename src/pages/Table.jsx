@@ -1,24 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee";
+import { fetchEmployees } from "../service/ApiService";
 
-const Table = ({ nextStep }) => {
+const Table = ({ nextStep, employeeId }) => {
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
+    const [employees, setEmployees] = useState([]);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [employeeIdAd, setEmployeeIdAd] = useState(null);
 
-  const toggleVisibility = () => {
-    console.log("showing")
-    setIsVisible(!isVisible);
-  };
+    
+    const token = localStorage.getItem("token"); // Get the JWT token from localStorage
 
-  const deleteEmployee = () => {
-    alert("Are you sure you want to delete?")
-  }
-  return (
-    <div style={{height: '100vh'}}>
-        <div className="main-content-main-page">
+    // Fetch employees data from the backend
+    useEffect(() => {
+        const fetchEmployeesData = async () => {
+            try {
+                const employeesData = await fetchEmployees(token);
+                setEmployees(employeesData); // Set the employees data to state
+            } catch (err) {
+                setError(err.message); // Handle error
+            } finally {
+                setLoading(false); // Stop loading spinner once the data is fetched
+            }
+        };
+        
+        fetchEmployeesData();
+    }, [token]);
+    
+    const toggleVisibility = (employeeId) => {
+        setEmployeeIdAd(employeeId);
+        console.log("showing");
+        setIsVisible(!isVisible);
+        console.log("Employee Id: ", employeeId);  // Logging the employee ID
+    };
+    
+
+    const deleteEmployee = () => {
+        alert("Are you sure you want to delete?")
+        localStorage.removeItem('token')
+    }
+    return (
+        <div style={{ height: '100vh' }}>
+            <div className="main-content-main-page">
                 <h1>Staff Management System</h1>
                 <div>
                     <div className='arrow-directions'>
@@ -27,57 +55,70 @@ const Table = ({ nextStep }) => {
                     </div>
                     <div className="admin-info manage">
                         <h2>All Employees</h2>
+                        {loading && <p>Loading...</p>}
+                        {error && <p style={{ color: "red" }}>{error}</p>}
                         <div className="staff-table">
                             <div className="table-container">
-                            <table className="styled-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Image</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
-                                        <th>Salary</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Motunrayo sanni</td>
-                                        <td><img src="https://picsum.photos/200/300" alt="image" /></td>
-                                        <td>agananojoshua001@gmail.com</td>
-                                        <td>12, kalu</td>
-                                        <td>6000</td>
-                                        <td>
-                                            <div className="action-btn">
-                                                <button style={{ cursor: 'pointer' }} onClick={toggleVisibility}>edit</button>
-                                                <button style={{ cursor: 'pointer' }} onClick={deleteEmployee}>delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Motunrayo sanni</td>
-                                        <td><img src="https://picsum.photos/200/300" alt="image" /></td>
-                                        <td>agananojoshua001@gmail.com</td>
-                                        <td>12, kalu</td>
-                                        <td>6000</td>
-                                        <td>
-                                            <div className="action-btn">
-                                                <button style={{ cursor: 'pointer' }}>edit</button>
-                                                <button style={{ cursor: 'pointer' }}>delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table className="styled-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Salary</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {employees.length > 0 ? (
+                                            employees.map((employee) => (
+                                                <tr key={employee._id}>
+                                                    <td>{employee.name}</td>
+                                                    <td>
+                                                        <img
+                                                            src={employee.imageUrl || "https://picsum.photos/200/300"} // Add image URL field if present
+                                                            alt={employee.name}
+                                                            style={{ width: "100px", height: "100px" }}
+                                                        />
+                                                    </td>
+                                                    <td>{employee.email}</td>
+                                                    <td>{employee.address || "Not available"}</td>
+                                                    <td>{employee.salary || "Not available"}</td>
+                                                    <td>
+                                                        <div className="action-btn">
+                                                            <button
+                                                                style={{ cursor: "pointer" }}
+                                                                onClick={() => toggleVisibility(employee._id)}
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                            <button
+                                                                style={{ cursor: "pointer" }}
+                                                                onClick={() => deleteEmployee(employee._id)}
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="6">No employees found</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-            {isVisible && <UpdateEmployee onClick={toggleVisibility}/>}
-    </div>
-  )
+            {isVisible && <UpdateEmployee onClick={toggleVisibility}  employeeId={employeeIdAd}/>}
+        </div>
+    )
 }
 
 export default Table

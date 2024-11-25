@@ -48,7 +48,7 @@ const NavBar = () => {
                 <div className="profile-circle">
                     JD
                 </div>
-                <staffname>Chief Excecutive Officer</staffname>
+                <h2>Chief Excecutive Officer</h2>
                 <button onClick={handleLogout}><FaPowerOff/>Logout</button>
             </div>
         </div>

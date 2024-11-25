@@ -1,7 +1,7 @@
 import NavBar from '../components/NavBar'
 import '../util/Profile.css'
 
-const Profile = () => {
+const Profile = ({name, email, gender, role}) => {
     return (
         <div style={{ height: '100vh' }}>
             <div className="main-content-main-page" style={{paddingLeft: '0'}}>
@@ -12,10 +12,10 @@ const Profile = () => {
                     <div className="image-profile">AJ</div>
                     <div className="profile-details">
                         <ul>
-                            <li>Name: John Deo</li>
-                            <li>Gender: Male</li>
-                            <li>Email: agananojoshua001@gmail.com</li>
-                            <li>Gender: Chief Executive Officer</li>
+                            <li>Name: {name}</li>
+                            <li>Gender: {gender}</li>
+                            <li>Email: {email}</li>
+                            <li>Gender: {role}</li>
                         </ul>
                     </div>
                     </div>
